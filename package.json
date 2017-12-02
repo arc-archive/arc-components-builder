@@ -1,0 +1,40 @@
+{
+  "name": "arc-components-builder",
+  "version": "0.1.0",
+  "license": "Apache-2.0 OR CC-BY-4.0",
+  "description": "Node module to create a bundle import file from ARC components",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "api-console-dependency-manager": "^0.1.0",
+    "colors": "^1.1.2",
+    "fs-extra": "^3.0.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-if": "^2.0.2",
+    "merge-stream": "^1.0.1",
+    "polymer-analyzer": "^2.7.0",
+    "polymer-build": "1.5.1",
+    "through2": "^2.0.3",
+    "wc-reactor": "^0.1.0",
+    "winston": "^2.3.1"
+  },
+  "private": false,
+  "main": "index.js",
+  "author": "The Advanced REST client authors <arc@mulesoft.com>",
+  "scripts": {
+    "test": "mocha test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/advanced-rest-client/arc-components-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/advanced-rest-client/arc-components-builder/issues",
+    "email": "arc@mulesoft.com"
+  },
+  "engines": {
+    "node": ">=6.5.0"
+  }
+}

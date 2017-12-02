@@ -1,0 +1,8 @@
+.project
+.vscode
+.imdone
+node_modules
+build
+dist
+npm-lock.json
+.DS_Store
