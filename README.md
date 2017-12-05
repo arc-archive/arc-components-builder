@@ -11,6 +11,12 @@ This library generates a **bundle file of web components**. It can be used to op
 
 Another thing it does **is generating a React wrapper for the web components** so it can be used in React application. It creates exactly the same interface as web components uses. It handles all custom events, property change events and data binding (in a React way).
 
+## Installation
+
+```
+$ npm i --save-dev arc-components-builder
+```
+
 ## Example
 
 ```javascript
