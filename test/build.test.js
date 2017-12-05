@@ -28,7 +28,7 @@ describe('Build test', function() {
   });
 
   describe('Builds from export function', function() {
-    this.timeout(20000);
+    this.timeout(40000);
 
     after(function() {
       return fs.remove(testBuildPath);
@@ -126,7 +126,7 @@ describe('Build test', function() {
   });
 
   describe('Builds from class export', function() {
-    this.timeout(20000);
+    this.timeout(40000);
 
     after(function() {
       return fs.remove(testBuildPath);
