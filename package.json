@@ -2,7 +2,7 @@
   "name": "arc-components-builder",
   "version": "0.1.0",
   "license": "Apache-2.0 OR CC-BY-4.0",
-  "description": "Node module to create a bundle import file from ARC components",
+  "description": "Node module to create a bundle import file from ARC and any web components",
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.2.0"

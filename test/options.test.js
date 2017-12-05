@@ -32,11 +32,12 @@ describe('Options test', () => {
       reactComponents: {},
       verbose: '0',
       logger: true,
-      dest: 1234
+      dest: 1234,
+      bundleReactComponents: 'true'
     });
 
     assert.isFalse(instance.isValid, 'isValid is false');
-    assert.lengthOf(instance.validationErrors, 9, 'Errors list contains message');
+    assert.lengthOf(instance.validationErrors, 10, 'Errors list contains message');
   });
 
   it('Sets warning for invalid logger', function() {
@@ -63,6 +64,30 @@ describe('Options test', () => {
     const instance = new ProjectOptions({
       arcComponents: ['test'],
       reactComponents: ['hello']
+    });
+
+    assert.isTrue(instance.isValid, 'isValid is true');
+    assert.lengthOf(instance.validationErrors, 0, 'Errors list is empty');
+    assert.lengthOf(instance.validationWarnings, 1, 'Warning list conatins an item');
+  });
+
+  it('Sets warning for bundleReactComponents', function() {
+    const instance = new ProjectOptions({
+      arcComponents: ['test'],
+      bundleReactComponents: true,
+      react: false
+    });
+
+    assert.isTrue(instance.isValid, 'isValid is true');
+    assert.lengthOf(instance.validationErrors, 0, 'Errors list is empty');
+    assert.lengthOf(instance.validationWarnings, 1, 'Warning list conatins an item');
+  });
+
+  it('Sets warning for reactComponents', function() {
+    const instance = new ProjectOptions({
+      arcComponents: ['test'],
+      reactComponents: ['test'],
+      react: false
     });
 
     assert.isTrue(instance.isValid, 'isValid is true');
