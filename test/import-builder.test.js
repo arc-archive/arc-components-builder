@@ -116,34 +116,34 @@ describe('Import builder test', function() {
     });
 
     it('Should return a string', function() {
-      const builder = new ImportBuilder('', arcDeps, webDeps, logger);
+      const builder = new ImportBuilder('', arcDeps, webDeps, undefined, logger);
       const result = builder.importContent();
       assert.typeOf(result, 'string');
     });
 
     it('Has import definitions', function() {
-      const builder = new ImportBuilder('', arcDeps, webDeps, logger);
+      const builder = new ImportBuilder('', arcDeps, webDeps, undefined, logger);
       const result = builder.importContent();
       const parts = result.split('\n');
       assert.lengthOf(parts, 9); // empty line at the end
     });
 
     it('Contains polymer import', function() {
-      const builder = new ImportBuilder('', arcDeps, webDeps, logger);
+      const builder = new ImportBuilder('', arcDeps, webDeps, undefined, logger);
       const result = builder.importContent();
       const parts = result.split('\n');
       assert.isTrue(parts[0].indexOf('polymer.html') !== -1);
     });
 
     it('Has dependencies for ARC only', function() {
-      const builder = new ImportBuilder('', arcDeps, undefined, logger);
+      const builder = new ImportBuilder('', arcDeps, undefined, undefined, logger);
       const result = builder.importContent();
       const parts = result.split('\n');
       assert.lengthOf(parts, 5);
     });
 
     it('Has dependencies for WC only', function() {
-      const builder = new ImportBuilder('', undefined, webDeps, logger);
+      const builder = new ImportBuilder('', undefined, webDeps, undefined, logger);
       const result = builder.importContent();
       const parts = result.split('\n');
       assert.lengthOf(parts, 6);
@@ -164,7 +164,7 @@ describe('Import builder test', function() {
         'advanced-rest-client/paper-combobox',
         'paper-fabric#1.0.0'
       ];
-      builder = new ImportBuilder(testBuildPath, arcDeps, webDeps, logger);
+      builder = new ImportBuilder(testBuildPath, arcDeps, webDeps, undefined, logger);
     });
 
     after(function() {
@@ -205,7 +205,7 @@ describe('Import builder test', function() {
         'advanced-rest-client/paper-combobox',
         'paper-fabric#1.0.0'
       ];
-      builder = new ImportBuilder(testBuildPath, arcDeps, webDeps, logger);
+      builder = new ImportBuilder(testBuildPath, arcDeps, webDeps, undefined, logger);
     });
 
     after(function() {
@@ -231,6 +231,39 @@ describe('Import builder test', function() {
         const parts = result.split('\n');
         assert.lengthOf(parts, 9);
       });
+    });
+  });
+
+  describe('importContent() with theme file', function() {
+    var webDeps;
+    var arcDeps;
+    const themeFile = 'theme.html';
+    before(function() {
+      webDeps = [
+        'raml-request-panel',
+        'advanced-rest-client/paper-autocomplete',
+        'PolymerElements/paper-fab#1.0.0',
+        'PolymerElements/paper-input#^1.0.0'
+      ];
+      arcDeps = [
+        'raml-other-panel',
+        'advanced-rest-client/paper-combobox',
+        'paper-fabric#1.0.0'
+      ];
+    });
+
+    it('Has import definitions', function() {
+      const builder = new ImportBuilder('', arcDeps, webDeps, themeFile, logger);
+      const result = builder.importContent();
+      const parts = result.split('\n');
+      assert.lengthOf(parts, 10);
+    });
+
+    it('Contains theme file import', function() {
+      const builder = new ImportBuilder('', arcDeps, webDeps, themeFile, logger);
+      const result = builder.importContent();
+      const parts = result.split('\n');
+      assert.isTrue(parts[1].indexOf(themeFile) !== -1);
     });
   });
 });

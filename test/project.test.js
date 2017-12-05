@@ -94,9 +94,13 @@ describe('Project test', function() {
         called++;
         return Promise.resolve();
       };
+      project._setupTheme = () => {
+        called++;
+        return Promise.resolve();
+      };
       return project._prepareBuild()
       .then(() => {
-        assert.equal(called, 4);
+        assert.equal(called, 5);
       });
     });
 
@@ -330,6 +334,33 @@ describe('Project test', function() {
       project.opts.bundleReactComponents = true;
       const result = project._createReactorOptions();
       assert.equal(result.bundleName, 'ArcComponents.js');
+    });
+  });
+
+  describe('Uses theme file in the build', function() {
+    var project;
+    before(function() {
+      project = new ArcComponentsProject(Object.assign({}, opts));
+      project.logger = logger;
+      project._buildLocation = 'test/build';
+      project.opts.style = 'test/_style.import.html';
+      return fs.ensureFile(project.opts.style)
+      .then(() => fs.ensureDir(project._buildLocation));
+    });
+
+    it('Copies theme file to build directory', function() {
+      return project._setupTheme();
+    });
+
+    it('Theme file has been copied', function() {
+      return fs.pathExists('test/build/_style.import.html')
+      .then(exists => assert.isTrue(exists));
+    });
+
+    it('_clearUnusedFiles() removes theme file', function() {
+      return project._clearUnusedFiles()
+      .then(() => fs.pathExists('test/build/_style.import.html'))
+      .then(exists => assert.isFalse(exists));
     });
   });
 });
